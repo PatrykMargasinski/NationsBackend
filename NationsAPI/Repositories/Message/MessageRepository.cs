@@ -18,18 +18,14 @@ namespace NationsAPI.Repositories
             _securityUtils = securityUtils;
         }
 
-        public IList<MessageDTO> GetAllMessagesTo(long PlayerId, int? fromRange, int? toRange, string PlayerNameFilter = "", bool onlyUnseen = false)
+        public IList<MessageDTO> GetAllMessagesTo(long PlayerId, int? fromRange = 0, int? toRange = 5, string playerNameFilter = "", bool onlyUnseen = false)
         {
-            if (!fromRange.HasValue || !toRange.HasValue)
-            {
-                fromRange = 0; toRange = 5;
-            }
             return _context.Messages
                 .Include(x => x.ToPlayer)
                 .Include(x => x.FromPlayer)
                 .Where(mes =>
                 mes.ToPlayerId == PlayerId && (
-                    (mes.FromPlayer.Nick).ToLower().Contains(PlayerNameFilter.Trim().ToLower())
+                    (mes.FromPlayer.Nick).ToLower().Contains(playerNameFilter.Trim().ToLower())
                 ) &&
                     (!mes.Seen || !onlyUnseen) //get only unseen messages if "onlyUnseen" is true
                 )

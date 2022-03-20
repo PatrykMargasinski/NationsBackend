@@ -9,7 +9,7 @@ namespace NationsAPI.Repositories
 
     public interface IMessageRepository : ICrudRepository<Message>
     {
-        public IList<MessageDTO> GetAllMessagesTo(long playerId, int? fromRange, int? toRange, string PlayerNameFilter, bool onlyUnseen);
+        public IList<MessageDTO> GetAllMessagesTo(long playerId, int? fromRange = 0, int? toRange = 5, string playerNameFilter = "", bool onlyUnseen = false);
         public int CountMessagesTo(long playerId);
         public void SendMessage(Message message);
         public string GetMessageContent(long id);
