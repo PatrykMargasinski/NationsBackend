@@ -24,14 +24,10 @@ namespace NationsAPI.Repositories
         {
             return entities.SingleOrDefault(s => s.Id == id);
         }
-        public void Create(T model)
+        public long Create(T model)
         {
             entities.Add(model);
             _context.SaveChanges();
-        }
-        public long CreateGetId(T model)
-        {
-            Create(model);
             return model.Id;
         }
         public void Update(T model)
