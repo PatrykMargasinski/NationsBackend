@@ -8,7 +8,7 @@ using NationsAPI.Utils;
 using NUnit.Framework;
 using System;
 
-namespace NationsTest
+namespace NationsTest.Repositories
 {
     public class CrudRepositoryTest
     {

@@ -25,6 +25,7 @@ namespace NationsAPI.Utils
         public string CreateToken(Player player)
         {
             var key = _config.GetValue<string>("Security:AuthKey");
+            Console.WriteLine(key == null);
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 

@@ -45,7 +45,7 @@ namespace NationsAPI.Controllers
         {
             try
             {
-                _playerService.CreateUser(user);
+                _playerService.Register(user);
                 return Ok();
             }
             catch(Exception ex)
@@ -83,9 +83,9 @@ namespace NationsAPI.Controllers
         }
 
         [HttpGet("similarNames")]
-        public IActionResult GetSimilarNames(string name)
+        public IActionResult GetNicksStartingWith(string name)
         {
-            var similarNames = _playerService.GetSimilarNames(name);
+            var similarNames = _playerService.GetNicksStartingWith(name);
             return new JsonResult(similarNames);
         }
 

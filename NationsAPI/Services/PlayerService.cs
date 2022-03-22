@@ -22,9 +22,9 @@ namespace NationsAPI.Services
             return _playerRepository.Login(user);
         }
 
-        public void CreateUser(RegisterDTO user)
+        public Player Register(RegisterDTO user)
         {
-            _playerRepository.CreateUser(user);
+            return _playerRepository.Register(user);
         }
 
         public void DeleteAccount(long playerId)
@@ -37,9 +37,9 @@ namespace NationsAPI.Services
             _playerRepository.ChangePassword(changeModel);
         }
 
-        public IList<string> GetSimilarNames(string name)
+        public IList<string> GetNicksStartingWith(string name)
         {
-            var similarNames = _playerRepository.GetSimilarNames(name.ToLower().Replace(" ", ""));
+            var similarNames = _playerRepository.GetNicksStartingWith(name.ToLower().Replace(" ", ""));
             return similarNames;
         }
 

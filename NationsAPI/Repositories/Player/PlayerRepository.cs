@@ -39,7 +39,7 @@ namespace NationsAPI.Repositories
             };
         }
 
-        public void CreateUser(RegisterDTO user)
+        public Player Register(RegisterDTO user)
         {
             var errors = RegisterVerification(user);
             if (errors.Count > 0)
@@ -50,6 +50,7 @@ namespace NationsAPI.Repositories
                 Password = _securityUtils.Hash(user.Password),
             };
             Create(player);
+            return player;
         }
 
         public void DeleteAccount(long playerId)
@@ -81,13 +82,13 @@ namespace NationsAPI.Repositories
             return _context.Players.FirstOrDefault(player => player.Nick == nick);
         }
 
-        public bool IsPlayerWithThatNick(string nick)
+        public bool PlayerWithThatNickExist(string nick)
         {
             var playerExist = _context.Players.Any(x => x.Nick == nick);
             return playerExist;
         }
 
-        public IList<string> GetSimilarNames(string name)
+        public IList<string> GetNicksStartingWith(string name)
         {
             var names = _context.Players
                 .Where(x =>
@@ -142,7 +143,7 @@ namespace NationsAPI.Repositories
             IList<string> errors = new List<string>();
             if (model.Nick == "") errors.Add("Nick is empty");
             if (model.Password == "") errors.Add("Password is empty");
-            if (IsPlayerWithThatNick(model.Nick) == true)
+            if (PlayerWithThatNickExist(model.Nick) == true)
             {
                 errors.Add("There is a player with a such nick");
             }
@@ -150,7 +151,7 @@ namespace NationsAPI.Repositories
             return errors;
         }
 
-        public bool VerifyPassword(Player player, string pass)
+        private bool VerifyPassword(Player player, string pass)
         {
             string savedPasswordHash = player.Password;
             byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);

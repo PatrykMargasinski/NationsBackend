@@ -9,7 +9,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace NationsTest
+namespace NationsTest.Repositories
 {
     public class MessageRepositoryTest
     {
